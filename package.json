@@ -1,0 +1,19 @@
+{
+  "name": "synchronous-web-socket",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-server": "pnpm --filter \"@/web-socket-server\" start",
+    "start-client": "pnpm --filter \"@/web-socket-client\" start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Gleb Mikhalkov <gmihalkov123@gmail.com>",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1",
+  "devDependencies": {
+    "@biomejs/biome": "^2.1.2"
+  }
+}

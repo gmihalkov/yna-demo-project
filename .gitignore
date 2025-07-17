@@ -1,0 +1,14 @@
+**/node_modules/
+
+*.log
+logs/
+**/logs/
+
+.DS_Store
+Thumbs.db
+
+.env.local
+.env.*.local
+
+*.swp
+*.swo
