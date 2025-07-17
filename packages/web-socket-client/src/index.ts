@@ -1,1 +1,3 @@
-console.log('Hello Kitty!');
+import { App } from './App';
+
+App.start();

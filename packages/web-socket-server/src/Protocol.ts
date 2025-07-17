@@ -86,8 +86,33 @@ export class Protocol {
     const { delay, text } = message;
 
     await setTimeout(delay);
-    connection.send(text);
+    await this.sendMessage(connection, text);
 
     await this.sendMessages(connection, index + 1);
+  }
+
+  /**
+   * Sends the given message using the passed WebSocket connection.
+   *
+   * @param connection
+   * The connection.
+   *
+   * @param text
+   * The message text.
+   */
+  private async sendMessage(connection: WebSocket, text: string): Promise<void> {
+    if (connection.readyState !== connection.OPEN) {
+      return;
+    }
+
+    await new Promise<void>((resolve, reject) => {
+      connection.send(text, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
   }
 }
