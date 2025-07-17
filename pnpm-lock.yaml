@@ -17,6 +17,9 @@ importers:
       '@types/node':
         specifier: ^24.0.14
         version: 24.0.14
+      dotenv:
+        specifier: ^17.2.0
+        version: 17.2.0
       env-var:
         specifier: ^7.5.0
         version: 7.5.0
@@ -36,6 +39,9 @@ importers:
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
+      dotenv:
+        specifier: ^17.2.0
+        version: 17.2.0
       env-var:
         specifier: ^7.5.0
         version: 7.5.0
@@ -267,6 +273,10 @@ packages:
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
+  dotenv@17.2.0:
+    resolution: {integrity: sha512-Q4sgBT60gzd0BB0lSyYD3xM4YxrXA9y4uBDof1JNYGzOXrQdQ6yX+7XIAqoFOGQFOTK1D3Hts5OllpxMDZFONQ==}
+    engines: {node: '>=12'}
+
   env-var@7.5.0:
     resolution: {integrity: sha512-mKZOzLRN0ETzau2W2QXefbFjo5EF4yWq28OyKb9ICdeNhHJlOE/pHHnz4hdYJ9cNZXcJHo5xN4OT4pzuSHSNvA==}
     engines: {node: '>=10'}
@@ -434,6 +444,8 @@ snapshots:
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 24.0.14
+
+  dotenv@17.2.0: {}
 
   env-var@7.5.0: {}
 
