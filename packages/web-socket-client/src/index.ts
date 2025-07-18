@@ -1,3 +1,6 @@
 import { App } from './App';
+import { AppConfig } from './AppConfig';
 
-App.run();
+const config = AppConfig.create();
+
+App.run(config);

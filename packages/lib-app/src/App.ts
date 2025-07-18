@@ -1,14 +1,17 @@
-import { AppConfig } from './AppConfig';
+import type { AppConfig } from './AppConfig';
 
 /**
  * Represents an application that can be started and stopped using the system signals (such as SIGINT, SIGUSR, etc.).
  */
 export class App {
   /**
-   * Starts the application.
+   * Starts the application with the given configuration.
+   *
+   * @param config
+   * The application configuration.
    */
-  public static async run(): Promise<void> {
-    const app = new this();
+  public static async run(config: AppConfig): Promise<void> {
+    const app = new this(config);
 
     const handleShutdown = app.handleShutdown.bind(app);
     process.once('SIGTERM', handleShutdown);
@@ -19,9 +22,12 @@ export class App {
   }
 
   /**
+   * Creates an instance of the application with the given configuration.
+   *
+   * @param config
    * The app configuration.
    */
-  protected config = AppConfig.create();
+  protected constructor(protected readonly config: AppConfig) {}
 
   /**
    * Starts the application.
