@@ -1,5 +1,5 @@
 {
-  "name": "@/web-socket-client",
+  "name": "@/app-web-socket-server",
   "version": "1.0.0",
   "private": true,
   "description": "",
@@ -13,14 +13,20 @@
   "license": "ISC",
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
-    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "dependencies": {
     "@/lib-app": "workspace:*",
     "@/lib-protocol": "workspace:*",
     "@types/node": "^24.0.14",
+    "@types/ws": "^8.18.1",
     "dotenv": "^17.2.0",
-    "env-var": "^7.5.0"
+    "env-var": "^7.5.0",
+    "tsx": "^4.20.3",
+    "ws": "^8.18.3"
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   }
 }

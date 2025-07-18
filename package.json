@@ -5,8 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-server": "pnpm --filter \"@/web-socket-server\" start",
-    "start-client": "pnpm --filter \"@/web-socket-client\" start",
+    "start-server": "pnpm --filter \"@/app-web-socket-server\" start",
+    "start-client": "pnpm --filter \"@/app-web-socket-client\" start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
