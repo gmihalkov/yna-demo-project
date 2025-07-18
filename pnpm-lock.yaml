@@ -12,6 +12,22 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2
 
+  packages/lib-app:
+    dependencies:
+      '@types/node':
+        specifier: ^24.0.14
+        version: 24.0.14
+      dotenv:
+        specifier: ^17.2.0
+        version: 17.2.0
+      env-var:
+        specifier: ^7.5.0
+        version: 7.5.0
+    devDependencies:
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+
   packages/lib-protocol:
     dependencies:
       '@types/node':
@@ -24,6 +40,9 @@ importers:
 
   packages/web-socket-client:
     dependencies:
+      '@/lib-app':
+        specifier: workspace:*
+        version: link:../lib-app
       '@/lib-protocol':
         specifier: workspace:*
         version: link:../lib-protocol
@@ -46,6 +65,9 @@ importers:
 
   packages/web-socket-server:
     dependencies:
+      '@/lib-app':
+        specifier: workspace:*
+        version: link:../lib-app
       '@/lib-protocol':
         specifier: workspace:*
         version: link:../lib-protocol
