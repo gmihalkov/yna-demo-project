@@ -12,7 +12,7 @@ export class App extends BaseApp {
   /**
    * The underlying WebSocket server.
    */
-  private server?: WebSocketServer;
+  private server!: WebSocketServer;
 
   /**
    * @inheritdoc
@@ -33,11 +33,6 @@ export class App extends BaseApp {
    */
   protected async stop(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      if (!this.server) {
-        resolve();
-        return;
-      }
-
       this.server.close((error) => {
         if (error) {
           reject(error);
