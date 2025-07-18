@@ -1,8 +1,6 @@
 import { setTimeout } from 'node:timers/promises';
 
-import type { WebSocket } from 'ws';
-
-import type { ProtocolMessage as Message } from './ProtocolMessage';
+import { Protocol as BaseProtocol } from '@/lib-protocol';
 
 /**
  * Orchestrates the message sending protocol.
@@ -12,44 +10,7 @@ import type { ProtocolMessage as Message } from './ProtocolMessage';
  *
  * Once the message sequence is over, the connection remains opened.
  */
-export class Protocol {
-  /**
-   * Creates a default message sending protocol. The default protocol is:
-   *
-   * - Send "hello" with 2 seconds delay;
-   * - Send "still here?" with 3 seconds delay;
-   * - Send "you can leave now" with 3.5 seconds delay, 4 times in a row;
-   */
-  public static createDefault(): Protocol {
-    const messages: Message[] = [
-      {
-        text: 'hello',
-        delay: 2 * 1000,
-      },
-      {
-        text: 'still here?',
-        delay: 3 * 1000,
-      },
-    ];
-
-    for (let i = 0; i < 4; i += 1) {
-      messages.push({
-        text: 'you can leave now',
-        delay: 3.5 * 1000,
-      });
-    }
-
-    return new Protocol(messages);
-  }
-
-  /**
-   * Creates a protocol of sending the given sequence of messages.
-   *
-   * @param messages
-   * The message sequence to be sent.
-   */
-  private constructor(private readonly messages: Message[]) {}
-
+export class Protocol extends BaseProtocol {
   /**
    * Sends the messages using the provided Web Socket connection.
    *
@@ -73,7 +34,7 @@ export class Protocol {
    * The sequence index of the message to be sent at the current iteration.
    */
   private async sendMessages(connection: WebSocket, index: number = 0): Promise<void> {
-    if (connection.readyState !== connection.OPEN) {
+    if (this.isDisconnected(connection)) {
       return;
     }
 
@@ -86,33 +47,8 @@ export class Protocol {
     const { delay, text } = message;
 
     await setTimeout(delay);
-    await this.sendMessage(connection, text);
+    await this.send(connection, text);
 
     await this.sendMessages(connection, index + 1);
-  }
-
-  /**
-   * Sends the given message using the passed WebSocket connection.
-   *
-   * @param connection
-   * The connection.
-   *
-   * @param text
-   * The message text.
-   */
-  private async sendMessage(connection: WebSocket, text: string): Promise<void> {
-    if (connection.readyState !== connection.OPEN) {
-      return;
-    }
-
-    await new Promise<void>((resolve, reject) => {
-      connection.send(text, (error) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      });
-    });
   }
 }

@@ -26,11 +26,6 @@ export class App {
   private config = new AppConfig();
 
   /**
-   * The {@link Protocol|message sending protocol} to be executed for a newly connected client.
-   */
-  private protocol = Protocol.createDefault();
-
-  /**
    * The WebSocket client to listen messages from the server.
    */
   private client!: WebSocket;
@@ -39,11 +34,13 @@ export class App {
    * Starts the application instance.
    */
   private async run(): Promise<void> {
+    const protocol = await Protocol.fromFile(this.config.PROTOCOL_FILE);
+
     const url = `http://localhost:${this.config.PORT}`;
     this.client = new WebSocket(url);
 
     console.debug(`Starting to listen ${url}...`);
-    await this.protocol.wait(this.client);
+    await protocol.wait(this.client);
 
     console.debug('The message sequence is over; exiting...');
   }

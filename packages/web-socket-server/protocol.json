@@ -1,0 +1,26 @@
+[
+  {
+    "text": "hello",
+    "delay": 2000
+  },
+  {
+    "text": "still here?",
+    "delay": 3000
+  },
+  {
+    "text": "you can leave now",
+    "delay": 3500
+  },
+  {
+    "text": "you can leave now",
+    "delay": 3500
+  },
+  {
+    "text": "you can leave now",
+    "delay": 3500
+  },
+  {
+    "text": "you can leave now",
+    "delay": 3500
+  }
+]

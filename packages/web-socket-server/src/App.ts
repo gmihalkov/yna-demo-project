@@ -1,4 +1,4 @@
-import { type WebSocket, WebSocketServer } from 'ws';
+import { WebSocketServer } from 'ws';
 
 import { AppConfig } from './AppConfig';
 import { Protocol } from './Protocol';
@@ -28,11 +28,6 @@ export class App {
   private config = new AppConfig();
 
   /**
-   * The {@link Protocol|message sending protocol} to be executed for a newly connected client.
-   */
-  private protocol = Protocol.createDefault();
-
-  /**
    * The underlying WebSocket server.
    */
   private server?: WebSocketServer;
@@ -40,10 +35,11 @@ export class App {
   /**
    * Starts the application instance.
    */
-  private run(): void {
-    this.server = new WebSocketServer({ port: this.config.PORT });
+  private async run(): Promise<void> {
+    const protocol = await Protocol.fromFile(this.config.PROTOCOL_FILE);
+    const handleConnection = this.handleConnection.bind(this, protocol);
 
-    const handleConnection = this.handleConnection.bind(this);
+    this.server = new WebSocketServer({ port: this.config.PORT });
     this.server.on('connection', handleConnection);
 
     console.debug(`The WebSocket service is started at http://localhost:${this.config.PORT}`);
@@ -55,9 +51,8 @@ export class App {
    * @param connection
    * The new client's connection.
    */
-  private async handleConnection(connection: WebSocket): Promise<void> {
-    console.debug('A new client is connected to the server');
-    await this.protocol.execute(connection);
+  private async handleConnection(protocol: Protocol, connection: WebSocket): Promise<void> {
+    await protocol.execute(connection);
   }
 
   /**
